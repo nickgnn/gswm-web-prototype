@@ -11,12 +11,22 @@
   <name>gswm-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <java.version>11</java.version>
+    <javax.servlet.version>4.0.1</javax.servlet.version>
+    <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+    <maven.jar.plugin.version>3.1.0</maven.jar.plugin.version>
+  </properties>
+
   <dependencies>
 
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.1</version>
+      <version>${javax.servlet.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -32,6 +42,32 @@
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.4.12.RC2</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <!-- Build an executable JAR -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven.jar.plugin.version}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>com.apress.gswmbook.HelloWorld</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
       </plugin>
 
     </plugins>
